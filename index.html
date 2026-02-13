@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1a0033,#240046,#3c096c);
+  overflow:hidden;
+  transition:background 0.8s ease;
+}
+
+.background-glow{
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,#c77dff40,#7b2cbf10,transparent);
+  border-radius:50%;
+  filter:blur(120px);
+  animation:floatGlow 10s infinite alternate ease-in-out;
+}
+
+@keyframes floatGlow{
+  from{ transform:translate(-100px,-50px);}
+  to{ transform:translate(100px,80px);}
+}
+
+.card{
+  width:90%;
+  max-width:600px;
+  padding:3rem 2rem;
+  border-radius:25px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.2);
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+  color:white;
+  position:relative;
+  z-index:10;
+}
+
+h1{
+  font-weight:600;
+  font-size:2.5rem;
+  margin-bottom:1rem;
+}
+
+.subtitle{
+  font-weight:300;
+  font-size:1.1rem;
+  margin-bottom:2rem;
+  color:#e0aaff;
+}
+
+input{
+  width:80%;
+  padding:0.8rem;
+  border-radius:30px;
+  border:none;
+  outline:none;
+  text-align:center;
+  margin-bottom:2rem;
+  font-size:1rem;
+}
+
+.question{
+  font-size:1.5rem;
+  margin-bottom:2rem;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  position:relative;
+}
+
+button{
+  padding:0.8rem 2rem;
+  border-radius:50px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:all 0.3s ease;
+}
+
+.yes{
+  background:#c77dff;
+  color:white;
+}
+
+.yes:hover{
+  background:#e0aaff;
+  transform:translateY(-3px);
+}
+
+.no{
+  background:#5a189a;
+  color:#fff;
+}
+
+.success{
+  display:none;
+  margin-top:2rem;
+  animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.quote{
+  margin-top:1rem;
+  font-style:italic;
+  color:#ffccff;
+}
+
+.music-btn{
+  margin-top:1.5rem;
+  background:#240046;
+  color:white;
+}
+
+footer{
+  margin-top:2rem;
+  font-size:0.9rem;
+  color:#d0b3ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+
+<div class="card">
+
+  <h1>💜 Purple You 💜</h1>
+  <div class="subtitle">Inspired by BTS — “I Purple You”</div>
+
+  <input type="text" id="nameInput" placeholder="Enter your soulmate's name 💜">
+
+  <div class="question">Will you be my Valentine?</div>
+
+  <div class="buttons">
+    <button class="yes" id="yesBtn">Yes 💜</button>
+    <button class="no" id="noBtn">No 💔</button>
+  </div>
+
+  <div class="success" id="successArea">
+    <h2 id="personalMessage"></h2>
+    <div class="quote" id="randomQuote"></div>
+    <button class="music-btn" id="musicToggle">⏸ Pause Music</button>
+  </div>
+
+  <footer>Made with 💜</footer>
+
+</div>
+
+<script>
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const successArea = document.getElementById("successArea");
+const personalMessage = document.getElementById("personalMessage");
+const nameInput = document.getElementById("nameInput");
+const randomQuote = document.getElementById("randomQuote");
+const musicToggle = document.getElementById("musicToggle");
+
+const quotes = [
+  "Love yourself first. — RM",
+  "Don't be trapped in someone else's dream. — V",
+  "Effort makes you shine. — Jungkook",
+  "You are my universe.",
+  "Purple means I will trust and love you for a long time."
+];
+
+const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8e639eed2.mp3?filename=inspire-romantic-137237.mp3");
+audio.loop = true;
+audio.volume = 0.6;
+
+yesBtn.addEventListener("click", () => {
+
+  const name = nameInput.value.trim() || "My Love";
+
+  personalMessage.innerHTML = `💜 ${name}, You are my forever. 💜`;
+  randomQuote.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+  successArea.style.display = "block";
+
+  audio.play().catch(()=>{});
+
+  document.body.style.background =
+    "linear-gradient(135deg,#240046,#5a189a,#9d4edd)";
+});
+
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.position = "absolute";
+  noBtn.style.top = Math.random() * 80 + "%";
+  noBtn.style.left = Math.random() * 80 + "%";
+});
+
+musicToggle.addEventListener("click", () => {
+  if(audio.paused){
+    audio.play();
+    musicToggle.innerText = "⏸ Pause Music";
+  } else {
+    audio.pause();
+    musicToggle.innerText = "▶ Play Music";
+  }
+});
+
+</script>
+
+</body>
+</html>
