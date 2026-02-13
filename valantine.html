@@ -1,587 +1,234 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BTS 💜 Valentine Proposal</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        min-height: 100vh;
-        background: linear-gradient(
-          145deg,
-          #f3e5f5 0%,
-          #e1bee7 50%,
-          #ce93d8 100%
-        );
-        font-family:
-          "Dancing Script", "Pacifico", "Segoe UI", cursive, sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-        position: relative;
-        overflow-x: hidden;
-      }
-
-      /* floating hearts and purple flowers */
-      .float-item {
-        position: absolute;
-        pointer-events: none;
-        z-index: 1;
-        animation: float 8s infinite ease-in-out;
-        font-size: 2rem;
-        user-select: none;
-      }
-
-      @keyframes float {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 0.7;
-        }
-        50% {
-          transform: translateY(-25px) rotate(10deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 0.7;
-        }
-      }
-
-      /* purple flower animation */
-      .purple-flower {
-        position: absolute;
-        pointer-events: none;
-        z-index: 15;
-        animation: fallRotate 6s linear forwards;
-        font-size: 2.2rem;
-      }
-
-      @keyframes fallRotate {
-        0% {
-          transform: translateY(-20vh) rotate(0deg);
-          opacity: 0.9;
-        }
-        100% {
-          transform: translateY(120vh) rotate(360deg);
-          opacity: 0.2;
-        }
-      }
-
-      /* main card */
-      .valentine-card {
-        background: rgba(255, 245, 250, 0.9);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border-radius: 3rem 1.5rem 3rem 1.5rem;
-        box-shadow:
-          0 30px 45px rgba(155, 39, 176, 0.35),
-          0 10px 20px rgba(171, 71, 188, 0.3),
-          inset 0 2px 10px rgba(255, 255, 255, 0.9);
-        max-width: 650px;
-        width: 100%;
-        padding: 2.8rem 2.2rem;
-        text-align: center;
-        position: relative;
-        z-index: 10;
-        border: 3px solid rgba(206, 147, 216, 0.7);
-        transition: 0.3s;
-      }
-
-      h1 {
-        font-size: 3rem;
-        color: #6a1b9a;
-        text-shadow: 3px 3px 0 #e1bee7;
-        margin-bottom: 0.25rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-      }
-
-      .bts-logo {
-        font-size: 2.5rem;
-        filter: drop-shadow(2px 4px 6px #ab47bc);
-      }
-
-      .to-name {
-        font-size: 2rem;
-        color: #8e24aa;
-        background: #f3e5f5;
-        display: inline-block;
-        padding: 0.3rem 2rem;
-        border-radius: 40px;
-        margin: 0.8rem 0 1rem;
-        box-shadow: 0 4px 8px #ce93d8;
-        border: 2px solid white;
-      }
-
-      .bts-message {
-        font-size: 1.8rem;
-        color: #4a148c;
-        margin: 0.8rem 0;
-        background: #ede7f6;
-        padding: 0.8rem;
-        border-radius: 50px;
-        font-style: italic;
-      }
-
-      .bts-message span {
-        color: #aa00ff;
-        font-weight: bold;
-      }
-
-      .big-question {
-        font-size: 2.8rem;
-        line-height: 1.3;
-        margin: 1rem 0 1.5rem;
-        color: #7b1fa2;
-        background: rgba(255, 255, 255, 0.6);
-        padding: 0.5rem 1.5rem;
-        border-radius: 60px;
-        display: inline-block;
-        box-shadow: 0 2px 15px #ba68c8;
-      }
-
-      .big-question span {
-        display: inline-block;
-        animation: heartbeat 1.8s infinite;
-      }
-
-      @keyframes heartbeat {
-        0% {
-          transform: scale(1);
-        }
-        25% {
-          transform: scale(1.15);
-        }
-        35% {
-          transform: scale(1.08);
-        }
-        45% {
-          transform: scale(1.2);
-        }
-        55% {
-          transform: scale(1);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      .button-panel {
-        position: relative;
-        min-height: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        margin: 2rem 0 1rem;
-        flex-wrap: wrap;
-      }
-
-      .yes-btn,
-      .no-btn {
-        font-family: "Dancing Script", "Pacifico", cursive;
-        font-size: 2.2rem;
-        font-weight: bold;
-        padding: 0.8rem 2.5rem;
-        border: none;
-        border-radius: 60px;
-        cursor: pointer;
-        box-shadow:
-          0 12px 0 #6a1b9a,
-          0 8px 20px #ba68c8;
-        transition: all 0.1s ease;
-        border: 3px solid white;
-        z-index: 20;
-      }
-
-      .yes-btn {
-        background: #aa47bc;
-        color: white;
-        text-shadow: 0 2px 0 #4a148c;
-        transform: translateY(-3px);
-      }
-
-      .yes-btn:hover {
-        background: #ba68c8;
-        transform: translateY(0px);
-        box-shadow:
-          0 6px 0 #6a1b9a,
-          0 10px 20px #ce93d8;
-      }
-
-      .yes-btn:active {
-        transform: translateY(6px);
-        box-shadow:
-          0 2px 0 #6a1b9a,
-          0 5px 12px #ce93d8;
-      }
-
-      .no-btn {
-        background: #e1bee7;
-        color: #4a148c;
-        box-shadow:
-          0 10px 0 #8e24aa,
-          0 8px 20px #ab47bc;
-      }
-
-      /* success message area */
-      .success-area {
-        display: none;
-        margin-top: 1rem;
-      }
-
-      .valentine-wishes {
-        font-size: 2.2rem;
-        color: #4a148c;
-        background: #f3e5f5;
-        border-radius: 60px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        border: 4px dashed #aa00ff;
-        animation: glow 2s infinite;
-      }
-
-      @keyframes glow {
-        0% {
-          box-shadow: 0 0 10px #e1bee7;
-        }
-        50% {
-          box-shadow: 0 0 30px #aa47bc;
-        }
-        100% {
-          box-shadow: 0 0 10px #e1bee7;
-        }
-      }
-
-      .bts-quote {
-        font-size: 1.8rem;
-        color: #6a1b9a;
-        margin: 1rem 0;
-        font-weight: bold;
-      }
-
-      .flower-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 100;
-        overflow: hidden;
-      }
-
-      .now-playing {
-        font-size: 1.3rem;
-        color: #8e24aa;
-        margin-top: 1rem;
-        background: #f8f0fc;
-        padding: 0.3rem 1rem;
-        border-radius: 30px;
-        display: inline-block;
-      }
-
-      /* hide initial */
-      .initial-content {
-        display: block;
-      }
-    </style>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="flower-container" id="flowerContainer"></div>
-
-    <div class="valentine-card">
-      <!-- Initial Content -->
-      <div id="initialContent" class="initial-content">
-        <h1>
-          <span class="bts-logo">💜</span>
-          BTS ARMY Valentine
-          <span class="bts-logo">💜</span>
-        </h1>
-        <div class="to-name">for my purple sweetheart 💜</div>
-
-        <div class="bts-message">
-          "<span>You're my shining star</span> ★ like BTS said,
-          <span>borahae</span> 💜"
-        </div>
-
-        <div class="big-question">
-          <span>💜</span> will you be my Valentine? <span>💜</span>
-        </div>
-
-        <div class="button-panel" id="buttonPanel">
-          <button class="yes-btn" id="yesBtn">Yes! 💜💜</button>
-          <button class="no-btn" id="noBtn">No 💔</button>
-        </div>
-
-        <div class="now-playing">🎵 click Yes to play BTS & see magic 🎵</div>
-      </div>
-
-      <!-- Success Content (hidden initially) -->
-      <div id="successContent" class="success-area">
-        <div class="valentine-wishes">
-          💜✨ SARANGHAE! ✨💜<br />
-          <span style="font-size: 2.5rem">You made my heart dance!</span>
-        </div>
-
-        <div class="bts-quote">
-          🎤 "You're my soulmate, my everything" - BTS<br />
-          💜 Purple you forever! 💜
-        </div>
-
-        <div class="bts-quote" style="font-size: 2rem">
-          🌸 Happy Valentine's Day! 🌸<br />
-          #Borahae 💜
-        </div>
-
-        <div class="now-playing" id="songStatus">
-          🎵 Playing: BTS - Dynamite (just for you) 🎵
-        </div>
-
-        <div style="margin-top: 20px; font-size: 1.8rem; color: #8e24aa">
-          ⭐ you + me = perfect harmony ⭐
-        </div>
-      </div>
-    </div>
-
-    <script>
-      (function () {
-        // === BACKGROUND FLOATING ITEMS (hearts + purple flowers) ===
-        function createFloatItems() {
-          const body = document.body;
-          const items = [
-            "💜",
-            "💜",
-            "🌸",
-            "🌺",
-            "💜",
-            "🌸",
-            "🌷",
-            "💜",
-            "🌸",
-            "🌼",
-            "💜",
-            "🌸",
-          ];
-
-          for (let i = 0; i < 25; i++) {
-            const el = document.createElement("div");
-            el.className = "float-item";
-            el.textContent = items[Math.floor(Math.random() * items.length)];
-            el.style.left = Math.random() * 100 + "%";
-            el.style.top = Math.random() * 100 + "%";
-            el.style.animationDelay = Math.random() * 5 + "s";
-            el.style.fontSize = 1.5 + Math.random() * 2.5 + "rem";
-            el.style.opacity = 0.4 + Math.random() * 0.4;
-            body.appendChild(el);
-          }
-        }
-        createFloatItems();
-
-        // === ELEMENTS ===
-        const noBtn = document.getElementById("noBtn");
-        const yesBtn = document.getElementById("yesBtn");
-        const panel = document.getElementById("buttonPanel");
-        const initialContent = document.getElementById("initialContent");
-        const successContent = document.getElementById("successContent");
-        const flowerContainer = document.getElementById("flowerContainer");
-
-        // === AUDIO (BTS Song - Dynamite short preview) ===
-        // Using a free, safe, and short audio preview (from SoundCloud's embed or a free MP3)
-        // Since we can't host actual MP3, we'll use a free, no-copyright BTS-style audio
-        // But to be safe and work everywhere, we'll create a fun beep melody as alternative
-        // However, for real BTS, you'd need a file. Let's use a cute melody generator fallback
-        // But for demo, we'll use a short, free, happy tune from a reliable source
-        // Using a free "Happy Ukulele" from Pixabay (no attribution needed)
-
-        const audio = new Audio();
-        // This is a free, royalty-free happy tune that fits Valentine mood
-        audio.src =
-          "https://cdn.pixabay.com/download/audio/2022/03/10/audio_795aa4b8f0.mp3?filename=ukulele-113120.mp3";
-        audio.loop = true;
-        audio.volume = 0.5;
-
-        // Flag to check if song started
-        let songStarted = false;
-
-        // === PURPLE FLOWERS FUNCTION ===
-        function createPurpleFlowers() {
-          const flowerEmojis = [
-            "🌸",
-            "💜",
-            "🌺",
-            "🌸",
-            "🌷",
-            "🌸",
-            "💐",
-            "🌸",
-            "🌼",
-            "🌸",
-            "💜",
-          ];
-
-          // Create 30 flowers falling
-          for (let i = 0; i < 40; i++) {
-            setTimeout(() => {
-              const flower = document.createElement("div");
-              flower.className = "purple-flower";
-              flower.textContent =
-                flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
-              flower.style.left = Math.random() * 100 + "%";
-              flower.style.animationDuration = 4 + Math.random() * 4 + "s";
-              flower.style.fontSize = 1.8 + Math.random() * 2.5 + "rem";
-              flower.style.opacity = 0.9;
-              flower.style.transform = `rotate(${Math.random() * 360}deg)`;
-              flowerContainer.appendChild(flower);
-
-              // Remove after animation
-              setTimeout(() => {
-                flower.remove();
-              }, 8000);
-            }, i * 150); // Stagger for continuous effect
-          }
-
-          // Keep creating every 2 seconds for a while
-          for (let count = 0; count < 5; count++) {
-            setTimeout(() => {
-              for (let j = 0; j < 15; j++) {
-                setTimeout(() => {
-                  const flower = document.createElement("div");
-                  flower.className = "purple-flower";
-                  flower.textContent =
-                    flowerEmojis[
-                      Math.floor(Math.random() * flowerEmojis.length)
-                    ];
-                  flower.style.left = Math.random() * 100 + "%";
-                  flower.style.animationDuration = 4 + Math.random() * 4 + "s";
-                  flower.style.fontSize = 1.8 + Math.random() * 2.5 + "rem";
-                  flowerContainer.appendChild(flower);
-
-                  setTimeout(() => flower.remove(), 8000);
-                }, j * 200);
-              }
-            }, count * 2500);
-          }
-        }
-
-        // === MOVE NO BUTTON (teasing) ===
-        let isNoAbsolute = false;
-
-        function setNoAbsoluteIfNeeded() {
-          if (!isNoAbsolute && noBtn) {
-            const noBtnLeft = noBtn.offsetLeft;
-            const noBtnTop = noBtn.offsetTop;
-            noBtn.style.position = "absolute";
-            noBtn.style.left = noBtnLeft + "px";
-            noBtn.style.top = noBtnTop + "px";
-            noBtn.style.margin = "0";
-            isNoAbsolute = true;
-          }
-        }
-
-        function moveNoButton() {
-          if (!noBtn || !panel) return;
-          setNoAbsoluteIfNeeded();
-
-          const panelRect = panel.getBoundingClientRect();
-          const noBtnRect = noBtn.getBoundingClientRect();
-
-          const panelWidth = panelRect.width;
-          const panelHeight = panelRect.height;
-          const btnWidth = noBtnRect.width;
-          const btnHeight = noBtnRect.height;
-
-          const maxLeft = Math.max(0, panelWidth - btnWidth);
-          const maxTop = Math.max(0, panelHeight - btnHeight);
-
-          let newLeft = Math.random() * maxLeft;
-          let newTop = Math.random() * maxTop;
-
-          noBtn.style.left = newLeft + "px";
-          noBtn.style.top = newTop + "px";
-        }
-
-        // Event listeners for No button
-        if (noBtn) {
-          noBtn.addEventListener("mouseenter", moveNoButton);
-          noBtn.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            moveNoButton();
-          });
-          noBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            moveNoButton();
-            alert("💜 Borahae! No is not an option today! 💜");
-          });
-        }
-
-        // === YES BUTTON CLICK (main magic) ===
-        if (yesBtn) {
-          yesBtn.addEventListener("click", () => {
-            // Hide initial content
-            if (initialContent) initialContent.style.display = "none";
-
-            // Show success content
-            if (successContent) successContent.style.display = "block";
-
-            // Play BTS song (if not already playing)
-            if (!songStarted) {
-              audio.play().catch((e) => {
-                console.log("Audio play failed:", e);
-                // Show fallback message
-                const status = document.getElementById("songStatus");
-                if (status)
-                  status.innerHTML = "🎵 BTS vibes (click to enable sound) 🎵";
-              });
-              songStarted = true;
-            }
-
-            // Start purple flowers shower
-            createPurpleFlowers();
-
-            // Add extra floating items
-            for (let i = 0; i < 15; i++) {
-              setTimeout(() => {
-                const heart = document.createElement("div");
-                heart.className = "float-item";
-                heart.textContent = "💜🌸";
-                heart.style.left = Math.random() * 100 + "%";
-                heart.style.animation = "float 5s infinite";
-                heart.style.fontSize = "2.5rem";
-                document.body.appendChild(heart);
-              }, i * 300);
-            }
-
-            // Also show Valentine wishes in success
-            // Already visible
-          });
-        }
-
-        // Resize handling for no button
-        window.addEventListener("resize", () => {
-          if (isNoAbsolute && noBtn && panel) {
-            moveNoButton();
-          }
-        });
-
-        // Additional cute touches
-        console.log("💜 BTS Valentine ready! 💜");
-      })();
-    </script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1a0033,#240046,#3c096c);
+  overflow:hidden;
+  transition:background 0.8s ease;
+}
+
+.background-glow{
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,#c77dff40,#7b2cbf10,transparent);
+  border-radius:50%;
+  filter:blur(120px);
+  animation:floatGlow 10s infinite alternate ease-in-out;
+}
+
+@keyframes floatGlow{
+  from{ transform:translate(-100px,-50px);}
+  to{ transform:translate(100px,80px);}
+}
+
+.card{
+  width:90%;
+  max-width:600px;
+  padding:3rem 2rem;
+  border-radius:25px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.2);
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+  color:white;
+  position:relative;
+  z-index:10;
+}
+
+h1{
+  font-weight:600;
+  font-size:2.5rem;
+  margin-bottom:1rem;
+}
+
+.subtitle{
+  font-weight:300;
+  font-size:1.1rem;
+  margin-bottom:2rem;
+  color:#e0aaff;
+}
+
+input{
+  width:80%;
+  padding:0.8rem;
+  border-radius:30px;
+  border:none;
+  outline:none;
+  text-align:center;
+  margin-bottom:2rem;
+  font-size:1rem;
+}
+
+.question{
+  font-size:1.5rem;
+  margin-bottom:2rem;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  position:relative;
+}
+
+button{
+  padding:0.8rem 2rem;
+  border-radius:50px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:all 0.3s ease;
+}
+
+.yes{
+  background:#c77dff;
+  color:white;
+}
+
+.yes:hover{
+  background:#e0aaff;
+  transform:translateY(-3px);
+}
+
+.no{
+  background:#5a189a;
+  color:#fff;
+}
+
+.success{
+  display:none;
+  margin-top:2rem;
+  animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.quote{
+  margin-top:1rem;
+  font-style:italic;
+  color:#ffccff;
+}
+
+.music-btn{
+  margin-top:1.5rem;
+  background:#240046;
+  color:white;
+}
+
+footer{
+  margin-top:2rem;
+  font-size:0.9rem;
+  color:#d0b3ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+
+<div class="card">
+
+  <h1>💜 Purple You 💜</h1>
+  <div class="subtitle">Inspired by BTS — “I Purple You”</div>
+
+  <input type="text" id="nameInput" placeholder="Enter your soulmate's name 💜">
+
+  <div class="question">Will you be my Valentine?</div>
+
+  <div class="buttons">
+    <button class="yes" id="yesBtn">Yes 💜</button>
+    <button class="no" id="noBtn">No 💔</button>
+  </div>
+
+  <div class="success" id="successArea">
+    <h2 id="personalMessage"></h2>
+    <div class="quote" id="randomQuote"></div>
+    <button class="music-btn" id="musicToggle">⏸ Pause Music</button>
+  </div>
+
+  <footer>Made with 💜</footer>
+
+</div>
+
+<script>
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const successArea = document.getElementById("successArea");
+const personalMessage = document.getElementById("personalMessage");
+const nameInput = document.getElementById("nameInput");
+const randomQuote = document.getElementById("randomQuote");
+const musicToggle = document.getElementById("musicToggle");
+
+const quotes = [
+  "Love yourself first. — RM",
+  "Don't be trapped in someone else's dream. — V",
+  "Effort makes you shine. — Jungkook",
+  "You are my universe.",
+  "Purple means I will trust and love you for a long time."
+];
+
+const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8e639eed2.mp3?filename=inspire-romantic-137237.mp3");
+audio.loop = true;
+audio.volume = 0.6;
+
+yesBtn.addEventListener("click", () => {
+
+  const name = nameInput.value.trim() || "My Love";
+
+  personalMessage.innerHTML = `💜 ${name}, You are my forever. 💜`;
+  randomQuote.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+  successArea.style.display = "block";
+
+  audio.play().catch(()=>{});
+
+  document.body.style.background =
+    "linear-gradient(135deg,#240046,#5a189a,#9d4edd)";
+});
+
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.position = "absolute";
+  noBtn.style.top = Math.random() * 80 + "%";
+  noBtn.style.left = Math.random() * 80 + "%";
+});
+
+musicToggle.addEventListener("click", () => {
+  if(audio.paused){
+    audio.play();
+    musicToggle.innerText = "⏸ Pause Music";
+  } else {
+    audio.pause();
+    musicToggle.innerText = "▶ Play Music";
+  }
+});
+
+</script>
+
+</body>
 </html>
